@@ -3,8 +3,10 @@ import axios from 'axios';
 
 
 const Movie = (props) => {
+  
   const [movie, setMovie] = useState(null);
   console.log("movies", props.match.params.id);
+  
   const id = props.match.params.id; //declare outside of useeffect so I can use id in the depenancy array
   useEffect(() => {
     
@@ -23,16 +25,17 @@ const Movie = (props) => {
   },[id]);//depenency array
   
   // Uncomment this only when you have moved on to the stretch goals
-  // const saveMovie = () => {
-  //   const addToSavedList = props.addToSavedList;
-  //   addToSavedList(movie)
-  // }
+  const saveMovie = () => {
+    const addToSavedList = props.addToSavedList;
+    addToSavedList(movie)
+  }
 
   if (!movie) {
     return <div>Loading movie information...</div>;
   }
 
-  const { title, director, metascore, stars   } = movie;
+  const { title, director, metascore, stars } = movie;
+
   return (
     
     <div className="save-wrapper">
@@ -52,7 +55,7 @@ const Movie = (props) => {
           </div>
         ))}
       </div>
-      <div className="save-button">Save</div>
+      <div className="save-button" onClick={ ()=> saveMovie() }>Save</div>
     </div>
    
   );
